@@ -1,3 +1,10 @@
-export default function TranslatorPage() {
-	return <div></div>;
+import { Divider, Header } from '@Shared/ui';
+
+export function TranslatorPage() {
+	return (
+		<div>
+			<Header />
+			<Divider />
+		</div>
+	);
 }

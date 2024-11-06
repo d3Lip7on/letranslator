@@ -1,7 +1,7 @@
-import { Header } from '../Shared/ui/Header';
+import { TranslatorPage } from '@Pages/Translator';
 
 function App() {
-	return <Header />;
+	return <TranslatorPage />;
 }
 
 export default App;
