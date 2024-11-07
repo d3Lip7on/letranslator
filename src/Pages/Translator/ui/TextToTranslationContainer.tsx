@@ -1,10 +1,13 @@
-import { useState } from 'react';
 import { TranslationContainer } from './TranslationContainer';
 
-export function TextToTranslationContainer() {
-	const maxDigitsNumber = 100;
+type TextToTranslationContainerProps = {
+	text: string;
+	onEnter: (newText: string) => void;
+	onDelete: () => void;
+};
 
-	const [text, setText] = useState('');
+export function TextToTranslationContainer({ text, onEnter, onDelete }: TextToTranslationContainerProps) {
+	const maxDigitsNumber = 3;
 
 	return (
 		<TranslationContainer>
@@ -14,14 +17,14 @@ export function TextToTranslationContainer() {
 					placeholder="Enter text"
 					value={text}
 					onChange={(e) => {
-						setText(e.currentTarget.value);
+						onEnter(e.currentTarget.value);
 					}}
 					maxLength={maxDigitsNumber}
 				/>
 				<button
 					className="p-[20px] "
 					onClick={() => {
-						setText('');
+						onDelete();
 					}}
 				>
 					<img src="/close_button.svg" alt="close" />
