@@ -1,0 +1,1 @@
+export { colorScheme } from './colorScheme';

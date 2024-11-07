@@ -1,4 +1,4 @@
-const colorScheme = require('./src/Shared/styles/colors');
+const colorScheme = require('./src/Shared/styles/colorScheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

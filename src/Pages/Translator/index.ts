@@ -1,1 +1,1 @@
-export { TranslatorPage } from './TranslatorPage';
+export { TranslatorPage } from './ui/TranslatorPage';
