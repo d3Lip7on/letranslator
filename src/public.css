@@ -11,3 +11,21 @@
 textarea:focus {
 	outline: none;
 }
+
+@layer utilities {
+	.scrollbar-custom {
+		@apply overflow-y-auto; /* Добавляем прокрутку */
+	}
+
+	.scrollbar-custom::-webkit-scrollbar {
+		@apply w-[15px];
+	}
+
+	.scrollbar-custom::-webkit-scrollbar-thumb {
+		@apply w-[11px] bg-background-primary rounded-lg border-[2px] border-solid border-text-primary /* Ползунок с закругленными углами */;
+	}
+
+	.scrollbar-custom::-webkit-scrollbar-track {
+		@apply bg-text-primary rounded-lg; /* Цвет дорожки прокрутки */
+	}
+}
