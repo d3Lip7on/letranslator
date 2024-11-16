@@ -7,7 +7,8 @@ type TextToTranslationContainerProps = {
 };
 
 export function TextToTranslationContainer({ text, onEnter, onDelete }: TextToTranslationContainerProps) {
-	const maxDigitsNumber = 3;
+	// max digits quantity in translation container
+	const maxDigitsNumber = 1000;
 
 	return (
 		<TranslationContainer>
