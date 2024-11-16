@@ -28,16 +28,16 @@ export function TextToTranslationContainer({ text, onEnter, onDelete }: TextToTr
 						onDelete();
 					}}
 				>
-					<img src="/close_button.svg" alt="close" />
+					<img src="/icons/close_button.svg" alt="close" />
 				</button>
 			</div>
 			<div className="flex justify-between items-center">
 				<div className="flex gap-[40px] items-center">
 					<button>
-						<img src="/mic.svg" alt="microphone" className="w-[50px] h-[50px]" />
+						<img src="/icons/mic.svg" alt="microphone" className="w-[50px] h-[50px]" />
 					</button>
 					<button>
-						<img src="/volume.svg" alt="volume" className="w-[50px] h-[50px]" />
+						<img src="/icons/volume.svg" alt="volume" className="w-[50px] h-[50px]" />
 					</button>
 				</div>
 				<p className="text-[24px] text-text-primary">{`${text.length}/${maxDigitsNumber}`}</p>
