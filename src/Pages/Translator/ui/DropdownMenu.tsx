@@ -1,46 +1,11 @@
 import { DropdownMenuItem } from './DropdownMenuItem';
 
 type DropdownMenuProps = {
+	languages: string[];
 	onChange: (newValue: string) => void;
 };
 
-export function DropdownMenu({ onChange }: DropdownMenuProps) {
-	const items = [
-		'English',
-		'Spanish',
-		'French',
-		'German',
-		'Chinese',
-		'Japanese',
-		'Korean',
-		'Italian',
-		'Russian',
-		'Portuguese',
-		'Arabic',
-		'Hindi',
-		'Bengali',
-		'Turkish',
-		'Vietnamese',
-		'Thai',
-		'Swedish',
-		'English',
-		'Spanish',
-		'French',
-		'German',
-		'Chinese',
-		'Japanese',
-		'Korean',
-		'Italian',
-		'Russian',
-		'Portuguese',
-		'Arabic',
-		'Hindi',
-		'Bengali',
-		'Turkish',
-		'Vietnamese',
-		'Thai',
-		'Swedish',
-	];
+export function DropdownMenu({ onChange, languages }: DropdownMenuProps) {
 	return (
 		<div className="absolute top-0 left-0">
 			<div
@@ -48,7 +13,7 @@ export function DropdownMenu({ onChange }: DropdownMenuProps) {
 			overflow-hidden"
 			>
 				<ul className="flex flex-col w-[185px] h-[610px]  overflow-y-auto overflow-x-hidden text-text-primary text-center bg-background-primary scrollbar-custom">
-					{items.map((item) => (
+					{languages.map((item) => (
 						<DropdownMenuItem
 							value={item}
 							onClick={() => {

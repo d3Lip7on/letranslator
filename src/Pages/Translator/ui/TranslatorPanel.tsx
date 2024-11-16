@@ -3,16 +3,17 @@ import { TextToTranslationContainer } from './TextToTranslationContainer';
 import { TranstatedTextContainer } from './TranslatedTextContainer';
 import { DropdownButton } from './DropdownButton';
 import { DropdownMenu } from './DropdownMenu';
+import { languages } from '@Shared/data';
 
 export function TranslatorPaner() {
 	const [text, setText] = useState('');
 	const [translatedText, setTranslatedText] = useState('Перевод');
 
 	const [isTextToTranslateLanguageDropdownOpen, setIsTextToTranslateLanguageDropdownOpen] = useState(false);
-	const [initialLanguage, setInitialLanguage] = useState('English');
+	const [initialLanguage, setInitialLanguage] = useState(languages[0]);
 
 	const [isTranslatedTextLanguageDropdownOpen, setIsTranslatedTextLanguageDropdownOpen] = useState(false);
-	const [languageToTranslate, setLanguageToTranslate] = useState('Russian');
+	const [languageToTranslate, setLanguageToTranslate] = useState(languages[1]);
 
 	function textToTranslateDropdownClickHandler() {
 		setIsTextToTranslateLanguageDropdownOpen(!isTextToTranslateLanguageDropdownOpen);
@@ -48,7 +49,7 @@ export function TranslatorPaner() {
 				</div>
 				<div className="relative">
 					<TextToTranslationContainer text={text} onEnter={enterHandler} onDelete={deleteHandler} />
-					{isTextToTranslateLanguageDropdownOpen && <DropdownMenu onChange={textToTranslateDropdownMenuItemClickHandler} />}
+					{isTextToTranslateLanguageDropdownOpen && <DropdownMenu languages={languages} onChange={textToTranslateDropdownMenuItemClickHandler} />}
 				</div>
 			</div>
 
@@ -58,7 +59,7 @@ export function TranslatorPaner() {
 				</div>
 				<div className="relative">
 					<TranstatedTextContainer translatedText={translatedText} />
-					{isTranslatedTextLanguageDropdownOpen && <DropdownMenu onChange={translatedTextDropdownMenuItemClickHandler} />}
+					{isTranslatedTextLanguageDropdownOpen && <DropdownMenu languages={languages} onChange={translatedTextDropdownMenuItemClickHandler} />}
 				</div>
 			</div>
 		</div>
