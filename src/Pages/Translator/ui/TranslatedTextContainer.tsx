@@ -4,7 +4,7 @@ type TranstatedTextContainerProps = {
 	translatedText: string;
 };
 
-export function TranstatedTextContainer({ translatedText }: TranstatedTextContainerProps) {
+export function TranslatedTextContainer({ translatedText }: TranstatedTextContainerProps) {
 	return (
 		<TranslationContainer>
 			<p className="text-[48px] text-text-primary flex-grow">{translatedText}</p>
