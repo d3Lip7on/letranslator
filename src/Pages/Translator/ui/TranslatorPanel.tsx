@@ -1,14 +1,17 @@
-import { useReducer, useState } from 'react';
+import { useReducer, useRef, useState } from 'react';
 import { TextToTranslationContainer } from './TextToTranslationContainer';
 import { TranslatedTextContainer } from './TranslatedTextContainer';
 import { DropdownButton } from './DropdownButton';
 import { DropdownMenu } from './DropdownMenu';
 import { languages } from '@Shared/data';
 import { DropdownMenusStateType, dropdownReducer } from '../model';
+import { translate } from '../api';
+import { debounce } from 'lodash';
 
-export function TranslatorPaner() {
+export function TranslatorPanel() {
 	const [text, setText] = useState('');
 	const [translatedText, setTranslatedText] = useState('Перевод');
+	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
 	const initialDropdownMenusState: DropdownMenusStateType = {
 		isInitialLanguageDropdownOpen: false,
@@ -21,10 +24,29 @@ export function TranslatorPaner() {
 
 	function enterHandler(newText: string) {
 		setText(newText);
+
+		if (debounceTimer.current) {
+			clearTimeout(debounceTimer.current);
+		}
+
+		debounceTimer.current = setTimeout(async () => {
+			if (newText !== '') {
+				try {
+					const value = await translate(newText);
+					setTranslatedText(value);
+				} catch (error) {
+					console.error('Translation failed:', error);
+					setTranslatedText('Error while translating');
+				}
+			} else {
+				setTranslatedText('Перевод');
+			}
+		}, 1000);
 	}
 
 	function deleteHandler() {
 		setText('');
+		setTranslatedText('Перевод');
 	}
 
 	return (
