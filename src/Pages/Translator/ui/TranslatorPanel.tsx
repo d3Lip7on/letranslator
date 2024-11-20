@@ -50,60 +50,74 @@ export function TranslatorPanel() {
 	}
 
 	return (
-		<div className="flex gap-[50px] bg-background-primary px-[2%] pt-[100px]">
-			<div className="w-[100%]">
-				<div className="pl-[20px] mb-[5px]">
-					<DropdownButton
-						value={dropdownMenusState.initialLanguageObj.name}
-						isOpen={dropdownMenusState.isInitialLanguageDropdownOpen}
-						onClick={() => {
-							dropdownMenusStateDispatch({
-								type: 'INITIAL_LANGUAGE_DROPDOWN_CLICKED',
-							});
-						}}
-					/>
-				</div>
-				<div className="relative">
-					<TextToTranslationContainer text={text} onEnter={enterHandler} onDelete={deleteHandler} />
-					{dropdownMenusState.isInitialLanguageDropdownOpen && (
-						<DropdownMenu
-							languages={languages}
-							onChange={(newLangObj: LanguageType) => {
+		<div className="flex flex-col  px-[2%] pt-[100px]">
+			<div className="relative">
+				<div className="flex justify-between items-center justify-self-start w-full gap-[50px]">
+					<div className="pl-[20px] mb-[5px] w-full">
+						<DropdownButton
+							value={dropdownMenusState.initialLanguageObj.name}
+							isOpen={dropdownMenusState.isInitialLanguageDropdownOpen}
+							onClick={() => {
 								dropdownMenusStateDispatch({
-									type: 'INITIAL_LANGUAGE_CHOOSED',
-									data: newLangObj,
+									type: 'INITIAL_LANGUAGE_DROPDOWN_CLICKED',
 								});
 							}}
 						/>
-					)}
+					</div>
+					<div className="pl-[20px] mb-[5px] w-full">
+						<DropdownButton
+							value={dropdownMenusState.languageToTranslateObj.name}
+							isOpen={dropdownMenusState.isTranslatedTextLanguageDropdownOpen}
+							onClick={() => {
+								dropdownMenusStateDispatch({
+									type: 'TRANSLATED_LANGUAGE_DROPDOWN_CLICKED',
+								});
+							}}
+						/>
+					</div>
 				</div>
+				<button
+					onClick={() => {
+						dropdownMenusStateDispatch({ type: 'LANGUAGES_EXCHANGED' });
+					}}
+					className="w-[50px] h-[50px] absolute top-[6px] left-[50%] translate-x-[-50%]"
+				>
+					<img src="/icons/exchange.svg" />
+				</button>
 			</div>
 
-			<div className="w-[100%]">
-				<div className="pl-[20px] mb-[5px]">
-					<DropdownButton
-						value={dropdownMenusState.languageToTranslateObj.name}
-						isOpen={dropdownMenusState.isTranslatedTextLanguageDropdownOpen}
-						onClick={() => {
-							dropdownMenusStateDispatch({
-								type: 'TRANSLATED_LANGUAGE_DROPDOWN_CLICKED',
-							});
-						}}
-					/>
+			<div className="flex gap-[50px] ">
+				<div className="w-[100%]">
+					<div className="relative">
+						<TextToTranslationContainer text={text} onEnter={enterHandler} onDelete={deleteHandler} />
+						{dropdownMenusState.isInitialLanguageDropdownOpen && (
+							<DropdownMenu
+								languages={languages}
+								onChange={(newLangObj: LanguageType) => {
+									dropdownMenusStateDispatch({
+										type: 'INITIAL_LANGUAGE_CHOOSED',
+										data: newLangObj,
+									});
+								}}
+							/>
+						)}
+					</div>
 				</div>
-				<div className="relative">
-					<TranslatedTextContainer translatedText={translatedText} />
-					{dropdownMenusState.isTranslatedTextLanguageDropdownOpen && (
-						<DropdownMenu
-							languages={languages}
-							onChange={(newLangObj: LanguageType) => {
-								dropdownMenusStateDispatch({
-									type: 'TRANSLATED_LANGUAGE_CHOOSED',
-									data: newLangObj,
-								});
-							}}
-						/>
-					)}
+				<div className="w-[100%]">
+					<div className="relative">
+						<TranslatedTextContainer translatedText={translatedText} />
+						{dropdownMenusState.isTranslatedTextLanguageDropdownOpen && (
+							<DropdownMenu
+								languages={languages}
+								onChange={(newLangObj: LanguageType) => {
+									dropdownMenusStateDispatch({
+										type: 'TRANSLATED_LANGUAGE_CHOOSED',
+										data: newLangObj,
+									});
+								}}
+							/>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>

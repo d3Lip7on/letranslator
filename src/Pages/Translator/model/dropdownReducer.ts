@@ -34,6 +34,8 @@ export function dropdownReducer(state: DropdownMenusStateType, action: ActionTyp
 				}
 			}
 			return state;
+		case 'LANGUAGES_EXCHANGED':
+			return { ...state, initialLanguageObj: state.languageToTranslateObj, languageToTranslateObj: state.initialLanguageObj };
 		default:
 			return state;
 	}
