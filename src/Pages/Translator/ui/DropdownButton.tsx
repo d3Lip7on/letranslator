@@ -15,7 +15,13 @@ export function DropdownButton({ isOpen, onClick, value }: DropdownProps) {
 			}}
 		>
 			<p className="text-[36px] font-bold text-text-primary">{value}</p>
-			<div className="text-text-primary text-[36px]">{isOpen ? '<' : '>'}</div>
+			<img
+				className="w-[20px] h-[20px] relative top-[3px] transition-transform duration-100"
+				src="/icons/arrow-right.svg"
+				style={{
+					transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+				}}
+			/>
 		</button>
 	);
 }
