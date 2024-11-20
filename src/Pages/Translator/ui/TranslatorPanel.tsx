@@ -41,7 +41,7 @@ export function TranslatorPanel() {
 			} else {
 				setTranslatedText('Перевод');
 			}
-		}, 1000);
+		}, 300);
 	}
 
 	function deleteHandler() {
