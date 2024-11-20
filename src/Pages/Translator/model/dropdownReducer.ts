@@ -7,27 +7,33 @@ export function dropdownReducer(state: DropdownMenusStateType, action: ActionTyp
 		case 'TRANSLATED_LANGUAGE_DROPDOWN_CLICKED':
 			return { ...state, isInitialLanguageDropdownOpen: false, isTranslatedTextLanguageDropdownOpen: !state.isTranslatedTextLanguageDropdownOpen };
 		case 'INITIAL_LANGUAGE_CHOOSED':
-			if (state.languageToTranslate != action.data) {
-				return { ...state, initialLanguage: action.data || 'None', isInitialLanguageDropdownOpen: false };
-			} else {
-				return {
-					...state,
-					initialLanguage: state.languageToTranslate,
-					languageToTranslate: state.initialLanguage,
-					isInitialLanguageDropdownOpen: false,
-				};
+			if (action.data != null) {
+				if (state.languageToTranslateObj.code != action.data.code) {
+					return { ...state, initialLanguageObj: action.data, isInitialLanguageDropdownOpen: false };
+				} else {
+					return {
+						...state,
+						initialLanguageObj: state.languageToTranslateObj,
+						languageToTranslateObj: state.initialLanguageObj,
+						isInitialLanguageDropdownOpen: false,
+					};
+				}
 			}
+			return state;
 		case 'TRANSLATED_LANGUAGE_CHOOSED':
-			if (state.initialLanguage != action.data) {
-				return { ...state, languageToTranslate: action.data || 'None', isTranslatedTextLanguageDropdownOpen: false };
-			} else {
-				return {
-					...state,
-					initialLanguage: state.languageToTranslate,
-					languageToTranslate: state.initialLanguage,
-					isTranslatedTextLanguageDropdownOpen: false,
-				};
+			if (action.data != null) {
+				if (state.initialLanguageObj.code != action.data.code) {
+					return { ...state, languageToTranslateObj: action.data || 'None', isTranslatedTextLanguageDropdownOpen: false };
+				} else {
+					return {
+						...state,
+						initialLanguageObj: state.languageToTranslateObj,
+						languageToTranslateObj: state.initialLanguageObj,
+						isTranslatedTextLanguageDropdownOpen: false,
+					};
+				}
 			}
+			return state;
 		default:
 			return state;
 	}

@@ -1,6 +1,8 @@
+import { LanguageType } from '@Shared/data/languages';
+
 export type ActionType = {
 	type: ActionTypeType;
-	data?: string;
+	data?: LanguageType;
 };
 
 export type ActionTypeType =
@@ -12,6 +14,6 @@ export type ActionTypeType =
 export type DropdownMenusStateType = {
 	isInitialLanguageDropdownOpen: boolean;
 	isTranslatedTextLanguageDropdownOpen: boolean;
-	initialLanguage: string;
-	languageToTranslate: string;
+	initialLanguageObj: LanguageType;
+	languageToTranslateObj: LanguageType;
 };

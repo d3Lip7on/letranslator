@@ -1,8 +1,9 @@
+import { LanguageType } from '@Shared/data/languages';
 import { DropdownMenuItem } from './DropdownMenuItem';
 
 type DropdownMenuProps = {
-	languages: string[];
-	onChange: (newValue: string) => void;
+	languages: LanguageType[];
+	onChange: (newLangObj: LanguageType) => void;
 };
 
 export function DropdownMenu({ onChange, languages }: DropdownMenuProps) {
@@ -15,7 +16,7 @@ export function DropdownMenu({ onChange, languages }: DropdownMenuProps) {
 				<ul className="flex flex-col w-[185px] h-[610px]  overflow-y-auto overflow-x-hidden text-text-primary text-center bg-background-primary scrollbar-custom">
 					{languages.map((item) => (
 						<DropdownMenuItem
-							value={item}
+							name={item.name}
 							onClick={() => {
 								onChange(item);
 							}}

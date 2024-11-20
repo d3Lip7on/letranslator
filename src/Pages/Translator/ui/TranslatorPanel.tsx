@@ -6,7 +6,7 @@ import { DropdownMenu } from './DropdownMenu';
 import { languages } from '@Shared/data';
 import { DropdownMenusStateType, dropdownReducer } from '../model';
 import { translate } from '../api';
-import { debounce } from 'lodash';
+import { LanguageType } from '@Shared/data/languages';
 
 export function TranslatorPanel() {
 	const [text, setText] = useState('');
@@ -16,8 +16,8 @@ export function TranslatorPanel() {
 	const initialDropdownMenusState: DropdownMenusStateType = {
 		isInitialLanguageDropdownOpen: false,
 		isTranslatedTextLanguageDropdownOpen: false,
-		initialLanguage: languages[0],
-		languageToTranslate: languages[1],
+		initialLanguageObj: languages[0],
+		languageToTranslateObj: languages[1],
 	};
 
 	const [dropdownMenusState, dropdownMenusStateDispatch] = useReducer(dropdownReducer, initialDropdownMenusState);
@@ -54,7 +54,7 @@ export function TranslatorPanel() {
 			<div className="w-[100%]">
 				<div className="pl-[20px] mb-[5px]">
 					<DropdownButton
-						value={dropdownMenusState.initialLanguage}
+						value={dropdownMenusState.initialLanguageObj.name}
 						isOpen={dropdownMenusState.isInitialLanguageDropdownOpen}
 						onClick={() => {
 							dropdownMenusStateDispatch({
@@ -68,10 +68,10 @@ export function TranslatorPanel() {
 					{dropdownMenusState.isInitialLanguageDropdownOpen && (
 						<DropdownMenu
 							languages={languages}
-							onChange={(newValue: string) => {
+							onChange={(newLangObj: LanguageType) => {
 								dropdownMenusStateDispatch({
 									type: 'INITIAL_LANGUAGE_CHOOSED',
-									data: newValue,
+									data: newLangObj,
 								});
 							}}
 						/>
@@ -82,7 +82,7 @@ export function TranslatorPanel() {
 			<div className="w-[100%]">
 				<div className="pl-[20px] mb-[5px]">
 					<DropdownButton
-						value={dropdownMenusState.languageToTranslate}
+						value={dropdownMenusState.languageToTranslateObj.name}
 						isOpen={dropdownMenusState.isTranslatedTextLanguageDropdownOpen}
 						onClick={() => {
 							dropdownMenusStateDispatch({
@@ -96,10 +96,10 @@ export function TranslatorPanel() {
 					{dropdownMenusState.isTranslatedTextLanguageDropdownOpen && (
 						<DropdownMenu
 							languages={languages}
-							onChange={(newValue: string) => {
+							onChange={(newLangObj: LanguageType) => {
 								dropdownMenusStateDispatch({
 									type: 'TRANSLATED_LANGUAGE_CHOOSED',
-									data: newValue,
+									data: newLangObj,
 								});
 							}}
 						/>
