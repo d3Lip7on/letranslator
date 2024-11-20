@@ -4,6 +4,9 @@ export type LanguageType = {
 };
 
 export const languages: LanguageType[] = [
+	{ code: 'en', name: 'English' },
+	{ code: 'pl', name: 'Polish' },
+	{ code: 'ru', name: 'Russian' },
 	{ code: 'af', name: 'Afrikaans' },
 	{ code: 'sq', name: 'Albanian' },
 	{ code: 'am', name: 'Amharic' },
@@ -30,7 +33,6 @@ export const languages: LanguageType[] = [
 	{ code: 'prs', name: 'Dari' },
 	{ code: 'dv', name: 'Divehi' },
 	{ code: 'nl', name: 'Dutch' },
-	{ code: 'en', name: 'English' },
 	{ code: 'et', name: 'Estonian' },
 	{ code: 'fo', name: 'Faroese' },
 	{ code: 'fj', name: 'Fijian' },
@@ -93,14 +95,12 @@ export const languages: LanguageType[] = [
 	{ code: 'or', name: 'Odia' },
 	{ code: 'ps', name: 'Pashto' },
 	{ code: 'fa', name: 'Persian' },
-	{ code: 'pl', name: 'Polish' },
 	{ code: 'pt', name: 'Portuguese (Brazil)' },
 	{ code: 'pt-pt', name: 'Portuguese (Portugal)' },
 	{ code: 'pa', name: 'Punjabi' },
 	{ code: 'otq', name: 'Queretaro Otomi' },
 	{ code: 'ro', name: 'Romanian' },
 	{ code: 'run', name: 'Rundi' },
-	{ code: 'ru', name: 'Russian' },
 	{ code: 'sm', name: 'Samoan (Latin)' },
 	{ code: 'sr-Cyrl', name: 'Serbian (Cyrillic)' },
 	{ code: 'sr-Latn', name: 'Serbian (Latin)' },
