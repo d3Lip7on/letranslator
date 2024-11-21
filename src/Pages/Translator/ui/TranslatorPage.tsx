@@ -1,5 +1,5 @@
 import { Divider, Header } from '@Shared/ui';
-import { TranslatorPanel } from './TranslatorPanel';
+import { TranslatorPanel } from '@Widgets/TranslatorPanel';
 
 export function TranslatorPage() {
 	return (

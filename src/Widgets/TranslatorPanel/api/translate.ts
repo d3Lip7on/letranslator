@@ -1,3 +1,5 @@
+import { BASE_URL } from '@Shared/api';
+
 type TranslateProps = {
 	text: string;
 	to: string;
@@ -5,7 +7,7 @@ type TranslateProps = {
 };
 
 export async function translate({ text, to, from }: TranslateProps): Promise<string> {
-	const response = await fetch('https://translatorserver2.azurewebsites.net/api/TranslateTrigger', {
+	const response = await fetch(`${BASE_URL}/TranslateTrigger`, {
 		body: JSON.stringify({ text: text, to: to, from: from }),
 		method: 'POST',
 	});

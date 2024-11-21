@@ -1,4 +1,4 @@
-import { LanguageType } from '@Shared/data/languages';
+import { LanguageType } from '@Entities/language';
 import { DropdownMenuItem } from './DropdownMenuItem';
 
 type DropdownMenuProps = {

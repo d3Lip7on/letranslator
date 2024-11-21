@@ -1,7 +1,4 @@
-export type LanguageType = {
-	code: string;
-	name: string;
-};
+import { LanguageType } from './language';
 
 export const languages: LanguageType[] = [
 	{ code: 'en', name: 'English' },

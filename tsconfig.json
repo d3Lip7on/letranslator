@@ -19,7 +19,10 @@
 		"paths": {
 			"@App/*": ["App/*"],
 			"@Pages/*": ["Pages/*"],
-			"@Shared/*": ["Shared/*"]
+			"@Shared/*": ["Shared/*"],
+			"@Features/*": ["Features/*"],
+			"@Widgets/*": ["Widgets/*"],
+			"@Entities/*": ["Entities/*"]
 		}
 	},
 	"include": ["src"]

@@ -1,12 +1,8 @@
 import { useReducer, useRef, useState } from 'react';
-import { TextToTranslationContainer } from './TextToTranslationContainer';
-import { TranslatedTextContainer } from './TranslatedTextContainer';
-import { DropdownButton } from './DropdownButton';
-import { DropdownMenu } from './DropdownMenu';
-import { languages } from '@Shared/data';
-import { DropdownMenusStateType, dropdownReducer } from '../model';
 import { translate } from '../api';
-import { LanguageType } from '@Shared/data/languages';
+import { TextToTranslationContainer, TranslatedTextContainer } from '@Features/translate-text';
+import { DropdownButton, DropdownMenu, DropdownMenusStateType, dropdownReducer } from '@Features/change-translator-language';
+import { languages, LanguageType } from '@Entities/language';
 
 export function TranslatorPanel() {
 	const [text, setText] = useState('');
