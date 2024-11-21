@@ -32,7 +32,11 @@ export function TranslatorPanel() {
 		debounceTimer.current = setTimeout(async () => {
 			if (newText !== '') {
 				try {
-					const value = await translate(newText);
+					const value = await translate({
+						text: newText,
+						to: dropdownMenusState.languageToTranslateObj.code,
+						from: dropdownMenusState.initialLanguageObj.code,
+					});
 					setTranslatedText(value);
 				} catch (error) {
 					console.error('Translation failed:', error);
