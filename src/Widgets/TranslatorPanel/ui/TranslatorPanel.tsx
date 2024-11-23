@@ -6,7 +6,7 @@ import { translate } from '@Features/translate-text';
 
 export function TranslatorPanel() {
 	const [text, setText] = useState('');
-	const [translatedText, setTranslatedText] = useState('Перевод');
+	const [translatedText, setTranslatedText] = useState<string>('Перевод');
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
 	const initialDropdownMenusState: DropdownMenusStateType = {
@@ -33,7 +33,7 @@ export function TranslatorPanel() {
 						to: dropdownMenusState.languageToTranslateObj.code,
 						from: dropdownMenusState.initialLanguageObj.code,
 					});
-					setTranslatedText(value);
+					setTranslatedText(value[0].translations[0].text);
 				} catch (error) {
 					console.error('Translation failed:', error);
 					setTranslatedText('Error while translating');

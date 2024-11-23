@@ -1,1 +1,1 @@
-export { BASE_URL } from './backend';
+export { TRANSLATE_SERVICE_BASE_URL } from './backend';

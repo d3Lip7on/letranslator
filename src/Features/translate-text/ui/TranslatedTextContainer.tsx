@@ -7,7 +7,7 @@ type TranstatedTextContainerProps = {
 export function TranslatedTextContainer({ translatedText }: TranstatedTextContainerProps) {
 	return (
 		<TranslationContainer>
-			<p className="text-[48px] text-text-primary flex-grow">{translatedText}</p>
+			<p className="text-[48px] text-text-primary flex-grow ">{translatedText}</p>
 			<div className="flex justify-between items-center">
 				<button>
 					<img src="/icons/volume.svg" className="w-[50px] h-[50px]" />
