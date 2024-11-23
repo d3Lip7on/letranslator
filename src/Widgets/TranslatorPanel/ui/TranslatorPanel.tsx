@@ -1,8 +1,8 @@
 import { useReducer, useRef, useState } from 'react';
-import { translate } from '../api';
 import { TextToTranslationContainer, TranslatedTextContainer } from '@Features/translate-text';
 import { DropdownButton, DropdownMenu, DropdownMenusStateType, dropdownReducer } from '@Features/change-translator-language';
 import { languages, LanguageType } from '@Entities/language';
+import { translate } from '@Features/translate-text';
 
 export function TranslatorPanel() {
 	const [text, setText] = useState('');

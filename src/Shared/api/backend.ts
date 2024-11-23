@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://translatorserver2.azurewebsites.net/api';
+export const BASE_URL = 'https://translatorfunc.azurewebsites.net';

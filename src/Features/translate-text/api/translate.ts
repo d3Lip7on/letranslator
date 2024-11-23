@@ -7,7 +7,7 @@ type TranslateProps = {
 };
 
 export async function translate({ text, to, from }: TranslateProps): Promise<string> {
-	const response = await fetch(`${BASE_URL}/TranslateTrigger`, {
+	const response = await fetch(`${BASE_URL}/api/translatorTrigger`, {
 		body: JSON.stringify({ text: text, to: to, from: from }),
 		method: 'POST',
 	});
