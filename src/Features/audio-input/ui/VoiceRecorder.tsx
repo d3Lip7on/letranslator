@@ -1,68 +1,37 @@
 import React, { useState, useRef } from 'react';
+import { getAccessToken } from '../api/getAccessToken';
+import { getTransformedText } from '../api/getTransformedText';
+import { useVoiceRecorder } from '../model/hooks/useVoiceRecorder';
 
-const VoiceRecorder: React.FC = () => {
-	const [isRecording, setIsRecording] = useState(false);
-	const [audioURL, setAudioURL] = useState<string | null>(null);
-	const [error, setError] = useState<string | null>(null);
-	const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-	const audioChunks = useRef<Blob[]>([]);
+type VoiceRecorderProps = {
+	onTextGenerated: (text: string) => void;
+	lang: string;
+};
 
-	const startRecording = async () => {
+const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onTextGenerated, lang }) => {
+	const transformText = async (audioBlob: Blob) => {
 		try {
-			setError(null);
-			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-			const mediaRecorder = new MediaRecorder(stream);
-			mediaRecorderRef.current = mediaRecorder;
-
-			audioChunks.current = [];
-
-			mediaRecorder.ondataavailable = (event) => {
-				audioChunks.current.push(event.data);
-			};
-
-			mediaRecorder.onstop = () => {
-				const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
-				const audioUrl = URL.createObjectURL(audioBlob);
-				setAudioURL(audioUrl);
-
-				// Если нужно создать файл:
-				const audioFile = new File([audioBlob], 'recording.wav', { type: 'audio/wav' });
-				console.log('Созданный файл:', audioFile);
-			};
-
-			mediaRecorder.start();
-			setIsRecording(true);
+			const transformedText = await getTransformedText(audioBlob, lang);
+			onTextGenerated(transformedText);
 		} catch (err) {
-			setError('Ошибка доступа к микрофону: ' + (err as Error).message);
+			console.log(err);
 		}
 	};
 
-	const stopRecording = () => {
-		if (mediaRecorderRef.current) {
-			mediaRecorderRef.current.stop();
-			setIsRecording(false);
+	const { isRecording, startRecording, stopRecording } = useVoiceRecorder({ onStop: transformText });
+
+	const toggleRecording = async () => {
+		if (isRecording) {
+			stopRecording();
+		} else {
+			await startRecording();
 		}
 	};
 
 	return (
-		<div className="flex flex-col items-center p-4 space-y-4 bg-gray-100 rounded-lg shadow-md">
-			<h1 className="text-2xl font-bold text-gray-700">Голосовая запись</h1>
-
-			{error && <div className="p-2 text-sm text-red-600 bg-red-100 rounded">{error}</div>}
-
-			<button
-				onClick={isRecording ? stopRecording : startRecording}
-				className={`px-4 py-2 text-white rounded ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'}`}
-			>
-				{isRecording ? 'Остановить запись' : 'Начать запись'}
-			</button>
-
-			{audioURL && (
-				<audio controls src={audioURL} className="mt-4">
-					Ваш браузер не поддерживает воспроизведение аудио.
-				</audio>
-			)}
-		</div>
+		<button className={`rounded-full w-[70px] h-[70px] flex justify-center items-center ${isRecording && 'bg-slate-500'}`} onClick={toggleRecording}>
+			<img src="/icons/mic.svg" alt="microphone" className="w-[50px] h-[50px]" />
+		</button>
 	);
 };
 

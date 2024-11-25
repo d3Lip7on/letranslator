@@ -3,6 +3,7 @@ import { TextToTranslationContainer, TranslatedTextContainer } from '@Features/t
 import { DropdownButton, DropdownMenu, DropdownMenusStateType, dropdownReducer } from '@Features/change-translator-language';
 import { languages, LanguageType } from '@Entities/language';
 import { translate } from '@Features/translate-text';
+import VoiceRecorder from '@Features/audio-input/ui/VoiceRecorder';
 
 export function TranslatorPanel() {
 	const [text, setText] = useState('');
@@ -89,7 +90,12 @@ export function TranslatorPanel() {
 			<div className="flex gap-[50px] ">
 				<div className="w-[100%]">
 					<div className="relative">
-						<TextToTranslationContainer text={text} onEnter={enterHandler} onDelete={deleteHandler} />
+						<TextToTranslationContainer
+							lang={dropdownMenusState.initialLanguageObj.extendedCode}
+							text={text}
+							onEnter={enterHandler}
+							onDelete={deleteHandler}
+						/>
 						{dropdownMenusState.isInitialLanguageDropdownOpen && (
 							<DropdownMenu
 								languages={languages}

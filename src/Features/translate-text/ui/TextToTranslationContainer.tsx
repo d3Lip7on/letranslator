@@ -1,12 +1,14 @@
+import VoiceRecorder from '@Features/audio-input/ui/VoiceRecorder';
 import { TranslationContainer } from './TranslationContainer';
 
 type TextToTranslationContainerProps = {
+	lang: string;
 	text: string;
 	onEnter: (newText: string) => void;
 	onDelete: () => void;
 };
 
-export function TextToTranslationContainer({ text, onEnter, onDelete }: TextToTranslationContainerProps) {
+export function TextToTranslationContainer({ text, onEnter, onDelete, lang }: TextToTranslationContainerProps) {
 	// max digits quantity in translation container
 	const maxDigitsNumber = 1000;
 
@@ -33,9 +35,7 @@ export function TextToTranslationContainer({ text, onEnter, onDelete }: TextToTr
 			</div>
 			<div className="flex justify-between items-center">
 				<div className="flex gap-[40px] items-center">
-					<button>
-						<img src="/icons/mic.svg" alt="microphone" className="w-[50px] h-[50px]" />
-					</button>
+					<VoiceRecorder onTextGenerated={onEnter} lang={lang} />
 					<button>
 						<img src="/icons/volume.svg" alt="volume" className="w-[50px] h-[50px]" />
 					</button>

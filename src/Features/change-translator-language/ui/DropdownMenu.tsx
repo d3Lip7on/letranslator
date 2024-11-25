@@ -20,6 +20,7 @@ export function DropdownMenu({ onChange, languages }: DropdownMenuProps) {
 							onClick={() => {
 								onChange(item);
 							}}
+							key={item.extendedCode}
 						/>
 					))}
 				</ul>
