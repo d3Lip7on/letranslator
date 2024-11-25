@@ -1,5 +1,3 @@
-import React, { useState, useRef } from 'react';
-import { getAccessToken } from '../api/getAccessToken';
 import { getTransformedText } from '../api/getTransformedText';
 import { useVoiceRecorder } from '../model/hooks/useVoiceRecorder';
 
@@ -9,6 +7,7 @@ type VoiceRecorderProps = {
 };
 
 const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onTextGenerated, lang }) => {
+	
 	const transformText = async (audioBlob: Blob) => {
 		try {
 			const transformedText = await getTransformedText(audioBlob, lang);

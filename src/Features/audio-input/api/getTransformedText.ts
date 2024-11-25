@@ -1,8 +1,6 @@
 import { getAccessToken } from './getAccessToken';
 
 export async function getTransformedText(audioBlob: Blob, lang: string) {
-	console.log('lang - ', lang);
-
 	const accessToken = await getAccessToken();
 	const uploadResponse = await fetch(
 		`https://swedencentral.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=${lang}`,
@@ -18,7 +16,7 @@ export async function getTransformedText(audioBlob: Blob, lang: string) {
 	);
 
 	if (!uploadResponse.ok) {
-		throw new Error('Ошибка получения токена доступа');
+		throw new Error('Ошибка отправки аудио файла');
 	}
 	const result = await uploadResponse.json();
 
