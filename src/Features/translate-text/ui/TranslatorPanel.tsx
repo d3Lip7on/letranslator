@@ -99,8 +99,8 @@ export function TranslatorPanel() {
 				</button>
 			</div>
 
-			<div className="flex gap-[50px] ">
-				<div className="w-[100%]">
+			<div className="flex gap-[50px] w-full">
+				<div className="w-full">
 					<div className="relative">
 						<TextToTranslationContainer
 							lang={dropdownMenusState.initialLanguageObj.extendedCode}
@@ -121,7 +121,7 @@ export function TranslatorPanel() {
 						)}
 					</div>
 				</div>
-				<div className="w-[100%]">
+				<div className="w-full">
 					<div className="relative">
 						<TranslatedTextContainer translatedText={translatedText} />
 						{dropdownMenusState.isTranslatedTextLanguageDropdownOpen && (

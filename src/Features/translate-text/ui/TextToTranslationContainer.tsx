@@ -16,7 +16,7 @@ export function TextToTranslationContainer({ text, onEnter, onDelete, lang }: Te
 		<TranslationContainer>
 			<div className="flex flex-grow items-start">
 				<textarea
-					className="w-full h-full bg-background-primary text-[48px] text-text-primary resize-none"
+					className="w-full h-full bg-background-primary text-[48px] text-text-primary resize-none scrollbar-custom"
 					placeholder="Enter text"
 					value={text}
 					onChange={(e) => {
