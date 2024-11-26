@@ -4,10 +4,14 @@ export function VolumeButton({ text, lang }: { text: string; lang: string }) {
 	return (
 		<button
 			onClick={async () => {
-				const audioBlob = await getTextInAudio(text, lang);
-				const audioUrl = URL.createObjectURL(audioBlob);
-				const audio = new Audio(audioUrl);
-				audio.play();
+				try {
+					const audioBlob = await getTextInAudio(text, lang);
+					const audioUrl = URL.createObjectURL(audioBlob);
+					const audio = new Audio(audioUrl);
+					audio.play();
+				} catch (err) {
+					console.log(err);
+				}
 			}}
 			className="w-[70px] h-[70px] flex justify-center items-center"
 		>
