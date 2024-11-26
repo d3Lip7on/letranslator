@@ -1,8 +1,9 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useReducer, useRef, useState } from 'react';
 import { TextToTranslationContainer, TranslatedTextContainer } from '@Features/translate-text';
 import { DropdownButton, DropdownMenu, DropdownMenusStateType, dropdownReducer } from '@Features/change-translator-language';
 import { languages, LanguageType } from '@Entities/language';
 import { translate } from '@Features/translate-text';
+import { AttachFiles, getTextFromDocument } from '@Features/attach-files';
 
 const initialDropdownMenusState: DropdownMenusStateType = {
 	isInitialLanguageDropdownOpen: false,
@@ -18,33 +19,24 @@ export function TranslatorPanel() {
 
 	const [dropdownMenusState, dropdownMenusStateDispatch] = useReducer(dropdownReducer, initialDropdownMenusState);
 
+	const [file, setFile] = useState<File | null>(null);
+	const fileInputRef = useRef<HTMLInputElement | null>(null);
+	const attachButtonRef = useRef<HTMLButtonElement | null>(null);
+
 	useEffect(() => {
-		console.log('use effect log');
-		if (text) {
-			updateTranslation();
-		}
-	}, [dropdownMenusState.initialLanguageObj, dropdownMenusState.languageToTranslateObj]);
-
-	async function updateTranslation(newText?: string) {
-		const value = await translate({
-			text: newText ?? text,
-			to: dropdownMenusState.languageToTranslateObj.code,
-			from: dropdownMenusState.initialLanguageObj.code,
-		});
-		setTranslatedText(value[0].translations[0].text);
-	}
-
-	function enterHandler(newText: string) {
-		setText(newText);
-
 		if (debounceTimer.current) {
 			clearTimeout(debounceTimer.current);
 		}
 
 		debounceTimer.current = setTimeout(async () => {
-			if (newText !== '') {
+			if (text !== '') {
 				try {
-					await updateTranslation(newText);
+					const translatedText = await translate({
+						text: text,
+						to: dropdownMenusState.languageToTranslateObj.code,
+						from: dropdownMenusState.initialLanguageObj.code,
+					});
+					setTranslatedText(translatedText);
 				} catch (error) {
 					console.error('Translation failed:', error);
 					setTranslatedText('Error while translating');
@@ -53,6 +45,42 @@ export function TranslatorPanel() {
 				setTranslatedText('Перевод');
 			}
 		}, 300);
+	}, [dropdownMenusState.initialLanguageObj, dropdownMenusState.languageToTranslateObj, text]);
+
+	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+		if (event.target.files && event.target.files.length > 0) {
+			setFile(event.target.files[0]);
+		}
+	};
+
+	const handleIconClick = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click();
+		}
+	};
+
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		if (!file) {
+			alert('Пожалуйста, выберите файл!');
+			return;
+		}
+
+		const formData = new FormData();
+		formData.append('file', file);
+
+		try {
+			const text = await getTextFromDocument(file);
+			setText(text);
+		} catch (error) {
+			console.error('Ошибка:', error);
+			alert('Ошибка при отправке файла!');
+		}
+	};
+
+	function enterHandler(newText: string) {
+		setText(newText);
 	}
 
 	function deleteHandler() {
@@ -107,6 +135,9 @@ export function TranslatorPanel() {
 							text={text}
 							onEnter={enterHandler}
 							onDelete={deleteHandler}
+							onAttachButtonClick={() => {
+								attachButtonRef.current?.click();
+							}}
 						/>
 						{dropdownMenusState.isInitialLanguageDropdownOpen && (
 							<DropdownMenu
@@ -137,6 +168,39 @@ export function TranslatorPanel() {
 						)}
 					</div>
 				</div>
+			</div>
+			<div>
+				<form onSubmit={handleSubmit}>
+					<input
+						type="file"
+						ref={fileInputRef}
+						onChange={handleFileChange}
+						style={{ display: 'none' }} // Скрываем стандартный input
+					/>
+					<button
+						ref={attachButtonRef}
+						type="button" // Используем type="button", чтобы не отправлять форму при клике на иконку
+						className="hidden"
+						onClick={handleIconClick}
+					></button>
+					{file != null && (
+						<div className="flex gap-[20px] flex-col items-start pt-[30px]">
+							<div className="flex gap-[40px]">
+								<p className="text-[32px] text-text-primary">{file.name}</p>
+								<button
+									onClick={() => {
+										setFile(null);
+									}}
+								>
+									<img src="/icons/close_button.svg" alt="delete" />
+								</button>
+							</div>
+							<button className="text-[32px] text-primary items-center" type="submit">
+								Translate
+							</button>
+						</div>
+					)}
+				</form>
 			</div>
 		</div>
 	);

@@ -1,14 +1,16 @@
 import VoiceRecorder from '@Features/audio-input/ui/VoiceRecorder';
 import { TranslationContainer } from './TranslationContainer';
+import { AttachFiles } from '@Features/attach-files';
 
 type TextToTranslationContainerProps = {
 	lang: string;
 	text: string;
 	onEnter: (newText: string) => void;
 	onDelete: () => void;
+	onAttachButtonClick: () => void;
 };
 
-export function TextToTranslationContainer({ text, onEnter, onDelete, lang }: TextToTranslationContainerProps) {
+export function TextToTranslationContainer({ text, onEnter, onDelete, lang, onAttachButtonClick }: TextToTranslationContainerProps) {
 	// max digits quantity in translation container
 	const maxDigitsNumber = 1000;
 
@@ -36,9 +38,10 @@ export function TextToTranslationContainer({ text, onEnter, onDelete, lang }: Te
 			<div className="flex justify-between items-center">
 				<div className="flex gap-[40px] items-center">
 					<VoiceRecorder onTextGenerated={onEnter} lang={lang} />
-					<button>
-						<img src="/icons/volume.svg" alt="volume" className="w-[50px] h-[50px]" />
+					<button className="w-[70px] h-[70px] flex justify-center items-center">
+						<img src="/icons/volume.svg" className="w-[50px] h-[50px]" alt="volume" />
 					</button>
+					<AttachFiles onClick={onAttachButtonClick} />
 				</div>
 				<p className="text-[24px] text-text-primary">{`${text.length}/${maxDigitsNumber}`}</p>
 			</div>

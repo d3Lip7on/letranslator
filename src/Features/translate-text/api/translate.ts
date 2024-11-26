@@ -6,7 +6,7 @@ type TranslateProps = {
 	from: string;
 };
 
-export async function translate({ text, to, from }: TranslateProps): Promise<Array<any>> {
+export async function translate({ text, to, from }: TranslateProps): Promise<string> {
 	const response = await fetch(`${TRANSLATE_SERVICE_BASE_URL}/translate?api-version=3.0&to=${to}&from=${from}`, {
 		body: JSON.stringify([{ text: text }]),
 		method: 'POST',
@@ -21,7 +21,7 @@ export async function translate({ text, to, from }: TranslateProps): Promise<Arr
 		throw new Error('Something went wrong while translating');
 	}
 
-	const body = await response.text();
+	const body = JSON.parse(await response.text());
 
-	return JSON.parse(body);
+	return body[0].translations[0].text;
 }
