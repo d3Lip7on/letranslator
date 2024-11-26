@@ -1,4 +1,4 @@
-import { getAccessToken } from './getAccessToken';
+import { getAccessToken } from '../../../Shared/api/getAccessToken';
 
 export async function getTransformedText(audioBlob: Blob, lang: string) {
 	const accessToken = await getAccessToken();

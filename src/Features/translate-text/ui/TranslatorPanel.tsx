@@ -154,7 +154,7 @@ export function TranslatorPanel() {
 				</div>
 				<div className="w-full">
 					<div className="relative">
-						<TranslatedTextContainer translatedText={translatedText} />
+						<TranslatedTextContainer translatedText={translatedText} lang={dropdownMenusState.languageToTranslateObj.extendedCode} />
 						{dropdownMenusState.isTranslatedTextLanguageDropdownOpen && (
 							<DropdownMenu
 								languages={languages}
