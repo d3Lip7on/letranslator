@@ -14,7 +14,7 @@ const initialDropdownMenusState: DropdownMenusStateType = {
 
 export function TranslatorPanel() {
 	const [text, setText] = useState('');
-	const [translatedText, setTranslatedText] = useState<string>('Перевод');
+	const [translatedText, setTranslatedText] = useState<string>('Translate');
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
 	const [dropdownMenusState, dropdownMenusStateDispatch] = useReducer(dropdownReducer, initialDropdownMenusState);
@@ -42,7 +42,7 @@ export function TranslatorPanel() {
 					setTranslatedText('Error while translating');
 				}
 			} else {
-				setTranslatedText('Перевод');
+				setTranslatedText('Translate');
 			}
 		}, 300);
 	}, [dropdownMenusState.initialLanguageObj, dropdownMenusState.languageToTranslateObj, text]);
@@ -85,7 +85,7 @@ export function TranslatorPanel() {
 
 	function deleteHandler() {
 		setText('');
-		setTranslatedText('Перевод');
+		setTranslatedText('Tranlsate');
 	}
 
 	return (
