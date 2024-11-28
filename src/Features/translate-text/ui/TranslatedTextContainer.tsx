@@ -1,4 +1,4 @@
-import { VolumeButton } from '@Features/listen-text/ui/volumeButton';
+import { VolumeButton } from '@Features/listen-text/ui/VolumeButton';
 import { TranslationContainer } from './TranslationContainer';
 
 type TranstatedTextContainerProps = {

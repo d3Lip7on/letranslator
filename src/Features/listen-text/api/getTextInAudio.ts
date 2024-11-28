@@ -1,29 +1,31 @@
 import { getAccessToken } from '@Shared/api';
 
-export async function getTextInAudio(text: string, lang: string): Promise<Blob> {
-	const accessToken = await getAccessToken();
+const voiceMap: Record<string, string> = {
+	'ru-RU': 'ru-RU-SvetlanaNeural',
+	'en-US': 'en-US-JennyNeural',
+	'pl-PL': 'pl-PL-ZofiaNeural',
+};
 
-	// Подбор подходящего голоса в зависимости от выбранного языка
-	let voiceName: string;
-	switch (lang) {
-		case 'ru-RU':
-			voiceName = 'ru-RU-SvetlanaNeural'; // Пример голоса для русского языка
-			break;
-		case 'en-US':
-			voiceName = 'en-US-JennyNeural'; // Пример голоса для английского языка
-			break;
-		case 'pl-PL':
-			voiceName = 'pl-PL-ZofiaNeural'; // Пример голоса для польского языка
-			break;
-		default:
-			throw new Error(`Unsupported language: ${lang}`);
-	}
+function getVoiceName(lang: string): string {
+	const voiceName = voiceMap[lang];
+	if (!voiceName) throw new Error('language is not supported for audio playing');
+	return voiceName;
+}
 
-	const ssml = `
+type SsmlParams = {
+	voiceName: string;
+	text: string;
+	lang: string;
+};
+
+function createSsml({ voiceName, lang, text }: SsmlParams) {
+	return `
 		<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${lang}">
 			<voice name="${voiceName}">${text}</voice>
 		</speak>`;
+}
 
+async function audioFetch(ssml: string, accessToken: string) {
 	const response = await fetch('https://swedencentral.tts.speech.microsoft.com/cognitiveservices/v1', {
 		method: 'POST',
 		headers: {
@@ -35,9 +37,16 @@ export async function getTextInAudio(text: string, lang: string): Promise<Blob> 
 	});
 
 	if (!response.ok) {
-		throw new Error('ошибка отправки текста для генерации аудио');
+		throw new Error('audio fetch error');
 	}
 
 	const blob = await response.blob();
 	return blob;
+}
+
+export async function getTextInAudio(text: string, lang: string): Promise<Blob> {
+	const voiceName = getVoiceName(lang);
+	const ssml = createSsml({ lang: lang, text: text, voiceName: voiceName });
+	const accessToken = await getAccessToken();
+	return await audioFetch(ssml, accessToken);
 }
