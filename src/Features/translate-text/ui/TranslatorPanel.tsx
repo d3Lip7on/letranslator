@@ -3,7 +3,7 @@ import { TextToTranslationContainer, TranslatedTextContainer } from '@Features/t
 import { DropdownButton, DropdownMenu, DropdownMenusStateType, dropdownReducer } from '@Features/change-translator-language';
 import { languages, LanguageType } from '@Entities/language';
 import { translate } from '@Features/translate-text';
-import { AttachFiles, getTextFromDocument } from '@Features/attach-files';
+import { getTextFromDocument } from '@Features/attach-files';
 
 const initialDropdownMenusState: DropdownMenusStateType = {
 	isInitialLanguageDropdownOpen: false,

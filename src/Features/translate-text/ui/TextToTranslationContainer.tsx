@@ -2,7 +2,6 @@ import VoiceRecorder from '@Features/audio-input/ui/VoiceRecorder';
 import { TranslationContainer } from './TranslationContainer';
 import { AttachFiles } from '@Features/attach-files';
 import { VolumeButton } from '@Features/listen-text/ui/VolumeButton';
-import { useState } from 'react';
 
 type TextToTranslationContainerProps = {
 	lang: string;
