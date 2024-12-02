@@ -22,6 +22,7 @@ export function TranslatorPanel() {
 	const [file, setFile] = useState<File | null>(null);
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
 	const attachButtonRef = useRef<HTMLButtonElement | null>(null);
+	const [isFileLoading, setIsFileLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (debounceTimer.current) {
@@ -67,6 +68,8 @@ export function TranslatorPanel() {
 			return;
 		}
 
+		setIsFileLoading(true);
+
 		const formData = new FormData();
 		formData.append('file', file);
 
@@ -76,6 +79,8 @@ export function TranslatorPanel() {
 		} catch (error) {
 			console.error('Ошибка:', error);
 			alert('Ошибка при отправке файла!');
+		} finally {
+			setIsFileLoading(false);
 		}
 	};
 
@@ -184,10 +189,11 @@ export function TranslatorPanel() {
 						onClick={handleIconClick}
 					></button>
 					{file != null && (
-						<div className="flex gap-[20px] flex-col items-start pt-[30px]">
-							<div className="flex gap-[40px]">
+						<div className="flex gap-[20px] flex-col items-start pt-[30px] pl-[30px]">
+							<div className="flex gap-[40px] items-center">
 								<p className="text-[32px] text-text-primary">{file.name}</p>
 								<button
+									className="pt-[5px]"
 									onClick={() => {
 										setFile(null);
 									}}
@@ -196,7 +202,7 @@ export function TranslatorPanel() {
 								</button>
 							</div>
 							<button className="text-[32px] text-primary items-center" type="submit">
-								Translate
+								{isFileLoading ? <div className="loader"></div> : 'Translate'}
 							</button>
 						</div>
 					)}
