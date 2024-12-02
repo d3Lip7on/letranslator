@@ -41,6 +41,7 @@ export function VolumeButton({ text, lang }: VolumeButtonProps) {
 			await audio.play();
 			setIsPlaying(true);
 		} catch (err) {
+			alert(err);
 			console.error('Error loading or playing audio:', err);
 		} finally {
 			setIsLoading(false);

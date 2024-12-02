@@ -22,6 +22,10 @@ textarea:focus {
 }
 
 @layer utilities {
+	body {
+		@apply bg-background-primary pb-[30px];
+	}
+
 	.scrollbar-custom {
 		@apply overflow-y-auto; /* Добавляем прокрутку */
 	}
