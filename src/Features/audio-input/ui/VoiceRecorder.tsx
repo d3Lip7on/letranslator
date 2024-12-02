@@ -1,23 +1,30 @@
-import { getTransformedText } from '../api/getTransformedText';
+import { useState } from 'react';
+import { getTextFromAudio } from '../api/getTextFromAudio';
 import { useVoiceRecorder } from '../model/hooks/useVoiceRecorder';
 
 type VoiceRecorderProps = {
-	onTextGenerated: (text: string) => void;
+	onTextTransformedFromAudio?: (text: string) => void;
 	lang: string;
 };
 
-const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onTextGenerated, lang }) => {
-	
-	const transformText = async (audioBlob: Blob) => {
+const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onTextTransformedFromAudio, lang }) => {
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const voiceRecordingEndedHandler = async (audioBlob: Blob) => {
 		try {
-			const transformedText = await getTransformedText(audioBlob, lang);
-			onTextGenerated(transformedText);
+			setIsLoading(true);
+			const textFromAudio = await getTextFromAudio(audioBlob, lang);
+			if (onTextTransformedFromAudio) {
+				onTextTransformedFromAudio(textFromAudio);
+			}
 		} catch (err) {
 			console.log(err);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
-	const { isRecording, startRecording, stopRecording } = useVoiceRecorder({ onStop: transformText });
+	const { isRecording, startRecording, stopRecording } = useVoiceRecorder({ onStop: voiceRecordingEndedHandler });
 
 	const toggleRecording = async () => {
 		if (isRecording) {
@@ -28,8 +35,12 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onTextGenerated, lang }) 
 	};
 
 	return (
-		<button className={`rounded-full w-[70px] h-[70px] flex justify-center items-center ${isRecording && 'bg-slate-500'}`} onClick={toggleRecording}>
-			<img src="/icons/mic.svg" alt="microphone" className="w-[50px] h-[50px]" />
+		<button
+			className={`rounded-full w-[70px] h-[70px] flex justify-center items-center ${isRecording && 'bg-slate-500'}`}
+			onClick={toggleRecording}
+			disabled={isLoading}
+		>
+			{isLoading ? <div className="loader"></div> : <img src="/icons/mic.svg" alt="microphone" className="w-[50px] h-[50px]" />}
 		</button>
 	);
 };

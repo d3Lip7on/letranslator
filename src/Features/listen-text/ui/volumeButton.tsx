@@ -4,9 +4,9 @@ import { getTextInAudio } from '../api/getTextInAudio';
 type VolumeButtonProps = { text: string; lang: string };
 
 export function VolumeButton({ text, lang }: VolumeButtonProps) {
-	const [isLoading, setIsLoading] = useState(false); // Для отображения лоадера
-	const [isPlaying, setIsPlaying] = useState(false); // Для отслеживания состояния воспроизведения
-	const audioRef = useRef<HTMLAudioElement | null>(null); // Храним объект Audio между рендерами
+	const [isLoading, setIsLoading] = useState(false);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	async function volumeButtonClickHandler() {
 		if (isPlaying) {

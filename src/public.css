@@ -12,15 +12,6 @@ textarea:focus {
 	outline: none;
 }
 
-.loader {
-	width: 30px;
-	height: 30px;
-	border: 4px solid rgba(0, 0, 0, 0.1);
-	border-top-color: #3498db; /* Цвет индикатора */
-	border-radius: 50%;
-	animation: spin 1s linear infinite;
-}
-
 @keyframes spin {
 	from {
 		transform: rotate(0deg);
@@ -45,5 +36,12 @@ textarea:focus {
 
 	.scrollbar-custom::-webkit-scrollbar-track {
 		@apply bg-text-primary rounded-lg; /* Цвет дорожки прокрутки */
+	}
+
+	.loader {
+		@apply w-[30px] h-[30px] rounded-full;
+		border: 4px solid rgba(0, 0, 0, 0.1);
+		border-top-color: #66fcf1; /* Цвет индикатора */
+		animation: spin 1s linear infinite;
 	}
 }

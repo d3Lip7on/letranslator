@@ -2,6 +2,7 @@ import VoiceRecorder from '@Features/audio-input/ui/VoiceRecorder';
 import { TranslationContainer } from './TranslationContainer';
 import { AttachFiles } from '@Features/attach-files';
 import { VolumeButton } from '@Features/listen-text/ui/VolumeButton';
+import { useState } from 'react';
 
 type TextToTranslationContainerProps = {
 	lang: string;
@@ -38,7 +39,7 @@ export function TextToTranslationContainer({ text, onEnter, onDelete, lang, onAt
 			</div>
 			<div className="flex justify-between items-center">
 				<div className="flex gap-[40px] items-center">
-					<VoiceRecorder onTextGenerated={onEnter} lang={lang} />
+					<VoiceRecorder onTextTransformedFromAudio={onEnter} lang={lang} />
 					<VolumeButton text={text} lang={lang} />
 					<AttachFiles onClick={onAttachButtonClick} />
 				</div>
